@@ -2,28 +2,96 @@
 #include "logic.h"
 #include <string>
 #include <sstream>
+#include <stack>
+#include <ctype.h>
+#include <cmath>
+#include <vector>
 
 
 //Getting the user input
-std::string getInput()
+void getInput(std::string& input)
 {
-	std::string input;
 
 	std::getline(std::cin, input);
 
-	return input;
-	
 }
 
-//parsing the input
-void parseInput(const std::string& userinput)
+// operator check
+bool isOperator(char c)
 {
-	std::string token;
-
-	std::stringstream ss(userinput);
-
-	while (std::getline(ss, token, ' '))
-	{
-		std::cout << "token:" << token << std::endl;
-	}
+	return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
 }
+
+int precedence(char prec)
+{
+	if (prec == '+' || prec == '-')
+	{
+		return 1;
+	}
+	if (prec == '*' || prec == '/')
+	{
+		return 2;
+	}
+	if (prec == '^')
+	{
+		return 3;
+	}
+	return 0;
+}
+
+
+//Parsing the input
+void parseInput(const std::string& input, std::stack<char>& operators, std::stack<std::string>& operands, std::string& token)
+{
+	
+	std::stringstream ss(input);
+	std::vector<std::string> output;
+
+	while (std::getline(ss, token, ' ')) //reading the user input and creating tokens
+	{
+		if (token.empty()) // skip empty tokens
+		{
+			continue;
+		}
+		if (isdigit(token[0])) // inspects the first character of the token as number
+		{
+			bool isValid = true;
+
+			for (int i = 0; i < token.size(); i++) // looping through the rest of the characters in a token
+			{
+				if (!isdigit(token[i]))
+				{
+					isValid = false;
+					break;
+				}				
+			}
+			if (isValid)
+			{
+				output.push_back(token); // pushing it to the output stack
+			}
+		}
+		if (isOperator(token[0])) // looking for one character operators in tokens
+		{
+			if (!operators.empty())
+			{
+				while (precedence(operators.top()) >= precedence(token[0]))
+				{
+						output.push_back(std::string(1,operators.top()));
+						operators.pop();
+				}
+				if (precedence(operators.top()) <= precedence(token[0]))
+				{
+					operators.push(token[0]);
+			    }
+			}
+			else
+			{
+				operators.push(token[0]);
+			}
+		}		
+	}
+
+}
+
+
+
