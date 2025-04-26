@@ -91,6 +91,12 @@ void parseInput(const std::string& input, std::stack<char>& operators, std::stac
 		}		
 	}
 
+	for (const auto& elem : output) //printing the postfix to check functionality
+	{
+		std::cout << elem << "";
+	}
+
+
 }
 
 

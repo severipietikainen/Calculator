@@ -22,9 +22,9 @@ int main() {
 
 	parseInput(input,operators,operands,token);
 
-	toPostFix(operators, operands, token);
+	//toPostFix(operators, operands, token);
 
-	//handleExpressions(operators, operands);
+	
 
 	
 }
