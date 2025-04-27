@@ -72,28 +72,40 @@ void parseInput(const std::string& input, std::stack<char>& operators, std::stac
 		}
 		if (isOperator(token[0])) // looking for one character operators in tokens
 		{
-			if (!operators.empty())
-			{
-				while (precedence(operators.top()) >= precedence(token[0]))
-				{
-						output.push_back(std::string(1,operators.top()));
-						operators.pop();
-				}
-				if (precedence(operators.top()) <= precedence(token[0]))
-				{
-					operators.push(token[0]);
-			    }
-			}
-			else
+			if (token[0] == '(')
 			{
 				operators.push(token[0]);
 			}
+
+			if (token[0] == ')')
+			{
+				while (!operators.empty() && operators.top() != '(')
+				{
+					output.push_back(std::string(1, operators.top()));
+					operators.pop();
+				}
+				operators.pop();
+			}
+
+			while (!operators.empty() && precedence(operators.top()) >= precedence(token[0]))
+			{
+				output.push_back(std::string(1, operators.top()));
+				operators.pop();
+			}
+			operators.push(token[0]);
 		}		
 	}
 
-	for (const auto& elem : output) //printing the postfix to check functionality
+	while (!operators.empty())
 	{
-		std::cout << elem << "";
+		output.push_back(std::string(1, operators.top()));
+		operators.pop();
+	}
+	
+
+	for (const auto& elem : output)
+	{
+		std::cout << elem << " ";
 	}
 
 
