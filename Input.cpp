@@ -70,7 +70,7 @@ void parseInput(const std::string& input, std::stack<char>& operators, std::stac
 				output.push_back(token); // pushing it to the output stack
 			}
 		}
-		if (isOperator(token[0])) // looking for one character operators in tokens
+		if (isOperator(token[0]) || token[0] == '(' || token[0] == ')') // looking for one character operators in tokens
 		{
 			if (token[0] == '(')
 			{
@@ -92,7 +92,13 @@ void parseInput(const std::string& input, std::stack<char>& operators, std::stac
 				output.push_back(std::string(1, operators.top()));
 				operators.pop();
 			}
-			operators.push(token[0]);
+			
+			if (isOperator(token[0]))
+			{
+				operators.push(token[0]);
+
+			}
+			
 		}		
 	}
 
