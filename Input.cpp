@@ -72,12 +72,7 @@ void parseInput(const std::string& input, std::stack<char>& operators, std::stac
 		}
 		if (isOperator(token[0]) || token[0] == '(' || token[0] == ')') // looking for one character operators in tokens
 		{
-			if (token[0] == '(')
-			{
-				operators.push(token[0]);
-			}
-
-			if (token[0] == ')')
+			if (token[0] == ')') // parentheses handling
 			{
 				while (!operators.empty() && operators.top() != '(')
 				{
@@ -86,25 +81,20 @@ void parseInput(const std::string& input, std::stack<char>& operators, std::stac
 				}
 				operators.pop();
 			}
-			if (isOperator(token[0]))
-			{
-				while (!operators.empty() && precedence(operators.top()) >= precedence(token[0]))
+			while (!operators.empty() && precedence(operators.top()) >= precedence(token[0]) && token[0] != ')' && token[0] != '(') // implementing the Shunting Yard algorithm for correct postfix
 				{
 					output.push_back(std::string(1, operators.top()));
 					operators.pop();
 				}
-			}
-			
-			if (isOperator(token[0]))
+			if (isOperator(token[0]) || token[0] == '(')
 			{
 				operators.push(token[0]);
 
-			}
-			
+			}	
 		}		
 	}
 
-	while (!operators.empty())
+	while (!operators.empty()) // final flush of remaining operators
 	{
 		output.push_back(std::string(1, operators.top()));
 		operators.pop();
