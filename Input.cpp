@@ -86,11 +86,13 @@ void parseInput(const std::string& input, std::stack<char>& operators, std::stac
 				}
 				operators.pop();
 			}
-
-			while (!operators.empty() && precedence(operators.top()) >= precedence(token[0]))
+			if (isOperator(token[0]))
 			{
-				output.push_back(std::string(1, operators.top()));
-				operators.pop();
+				while (!operators.empty() && precedence(operators.top()) >= precedence(token[0]))
+				{
+					output.push_back(std::string(1, operators.top()));
+					operators.pop();
+				}
 			}
 			
 			if (isOperator(token[0]))
