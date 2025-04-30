@@ -1,14 +1,24 @@
 #include <iostream>
-#include "logic.h"
+#include "Logic.h"
 #include <string>
 #include <sstream>
 #include <stack>
 #include <ctype.h>
 #include <cmath>
+#include <vector>
 
 
 
-void handleExpressions(std::stack<char>& operators, std::stack<std::string>& operands)
+void handleExpressions(std::vector<std::string>& output)
 {
+
+	std::stack<double> operands;
+	
+	for (const std::string& token : output)
+	{
+
+
+
+	}
 
 }

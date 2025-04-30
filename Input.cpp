@@ -1,5 +1,5 @@
 #include <iostream>
-#include "logic.h"
+#include "Logic.h"
 #include <string>
 #include <sstream>
 #include <stack>
@@ -17,7 +17,7 @@ void getInput(std::string& input)
 }
 
 // operator check
-bool isOperator(char c)
+static bool isOperator(char c)
 {
 	return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
 }
@@ -41,11 +41,12 @@ int precedence(char prec)
 
 
 //Parsing the input
-void parseInput(const std::string& input, std::stack<char>& operators, std::stack<std::string>& operands, std::string& token)
+void parseInput(const std::string& input, std::vector<std::string>& output)
 {
 	
 	std::stringstream ss(input);
-	std::vector<std::string> output;
+	std::string token;
+	std::stack<char> operators;
 
 	while (std::getline(ss, token, ' ')) //reading the user input and creating tokens
 	{

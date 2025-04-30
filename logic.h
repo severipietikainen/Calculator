@@ -1,15 +1,14 @@
 #pragma once
 #include <string>
 #include <stack>
+#include <vector>
 
 void getInput(std::string& input); //User input
 
-void parseInput(const std::string& userinput,std::stack<char>& operators, std::stack<std::string>& operands ,std::string& token); //parsing the user input into operators and operands
+void parseInput(const std::string& input, std::vector<std::string>& output); //parsing the user input into operators and operands
 
-void handleExpressions(std::stack<char>& operators,std::stack<std::string>& operands);
+void handleExpressions(std::vector<std::string>& output);
 
-void toPostFix(std::stack<char>& operators, std::stack<std::string>& operands, std::string& token);
-
-bool isOperator();
+static bool isOperator();
 
 int precedence(char prec);

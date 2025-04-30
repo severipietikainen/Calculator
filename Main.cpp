@@ -1,15 +1,14 @@
 #include <iostream>
 #include <string>
 #include <stack>
-#include "logic.h"
+#include "Logic.h"
+#include <vector>
 
 int main() {
 
 	//Creating the main data structures that will be referenced
 	std::string input;
-	std::string token;
-	std::stack<std::string> operands;
-	std::stack<char> operators;
+	std::vector<std::string> output;
 	
 	
     std::cout << "Hello this is a calculator" << std::endl;
@@ -20,13 +19,8 @@ int main() {
 
 	getInput(input);
 
-	parseInput(input,operators,operands,token);
+	parseInput(input,output);
 
-	//toPostFix(operators, operands, token);
-
-	
-
-	
 }
 
 
