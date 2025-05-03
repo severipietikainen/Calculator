@@ -17,7 +17,7 @@ void getInput(std::string& input)
 }
 
 // operator check
-static bool isOperator(char c)
+bool isOperator(char c)
 {
 	return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
 }
@@ -104,7 +104,7 @@ void parseInput(const std::string& input, std::vector<std::string>& output)
 
 	for (const auto& elem : output)
 	{
-		std::cout << elem << " ";
+		std::cout << elem << " " << std::endl;
 	}
 
 

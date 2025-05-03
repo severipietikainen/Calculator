@@ -9,6 +9,6 @@ void parseInput(const std::string& input, std::vector<std::string>& output); //p
 
 void handleExpressions(std::vector<std::string>& output);
 
-static bool isOperator();
+bool isOperator(char c);
 
 int precedence(char prec);

@@ -21,6 +21,8 @@ int main() {
 
 	parseInput(input,output);
 
+	handleExpressions(output);
+
 }
 
 
